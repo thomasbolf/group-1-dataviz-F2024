@@ -1,1 +1,5 @@
 .env
+notebook/_output/
+notebook/venv/
+notebook/.jupyterlite.doit.db
+
