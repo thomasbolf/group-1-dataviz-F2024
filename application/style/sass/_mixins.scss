@@ -1,0 +1,17 @@
+@mixin fontSize($size:16px) {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: $size;
+}
+
+@mixin respond($breakpoint) {
+    $breakpointPX: ($breakpoint) * 1px;
+    @if $breakpoint > 2000 {
+        @media (min-width: $breakpointPX) {
+            @content;
+        }
+    } @else {
+        @media (max-width: $breakpointPX) {
+            @content;
+        }
+    }
+}
