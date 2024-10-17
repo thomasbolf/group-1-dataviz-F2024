@@ -1,7 +1,41 @@
-@import 'sass/reset';
+// @import 'sass/reset';
 @import 'sass/fonts';
 @import 'sass/mixins';
 
 body {
     font-family:Arial, Helvetica, sans-serif;
+}
+
+.outer-container {
+    padding: 30px;
+}
+
+.inner-container {
+    margin-top: 10px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 60% 36%;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    gap: 20px;
+}
+
+.visualization-output {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+
+    .graphic {
+        // fit graphic to vis output box
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+
+.user-input {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
 }
