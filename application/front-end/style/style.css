@@ -1,16 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 400;
+  background-color: #F2F2F2;
 }
 
 .outer-container {
   padding: 30px;
 }
 
+.instructions {
+  padding: 20px;
+  padding-left: 30px;
+  font-size: 20px;
+  margin-right: 1000px;
+}
+
 .inner-container {
   margin-top: 10px;
-  border: 1px solid black;
   display: grid;
-  grid-template-columns: 60% 36%;
+  grid-template-columns: 70% 26%;
   align-items: center;
   justify-content: center;
   height: 500px;
@@ -18,18 +27,58 @@ body {
 }
 
 .visualization-output {
-  border: 1px solid black;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .visualization-output .graphic {
+  overflow: hidden;
+  padding: 20px;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.right-box {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 .user-input {
-  border: 1px solid black;
-  height: 100%;
-  width: 100%;
+  padding: 20px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.user-input select {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #717171;
+  width: 262px;
+  height: 45px;
+  gap: 0px;
+  border-radius: 12px;
+  border: 1px solid #717171;
+  padding: 10px;
+}
+.user-input p {
+  margin-bottom: 10px;
+}
+.user-input .file-upload {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+.user-input .file-upload .file-input {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 400;
 }/*# sourceMappingURL=style.css.map */
