@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="./js/index.js" defer></script>
+</head>
+<body>
+    <div class="outer-container">
+        <div class="instructions">
+            <p><b>Instructions:</b> Lorem ipsum dolor sit amet consectetur. Velit sed duis neque iaculis convallis at tristique ante mattis. Enim mattis mus amet fames sed tortor augue libero. Enim mattis mus amet fames sed tortor augu</p>
+        </div>
+        <div class="inner-container">
+            <div class="visualization-output">
+                <div class="graphic">
+                    <img src="graph-example.png" alt="Output of data visualization.">
+                </div>
+            </div>
+            <div class="right-box">
+            <div class="user-input">
+                <div class="viz-goal">
+                    <p>Visualization goal:</p>
+                    <select id="viz-goal-choice">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="analyze">Analyze data</option>
+                        <option value="answer">Answer a question</option>
+                        <option value="communicate">Communicate ideas</option>
+                        <option value="patterns">Find patterns</option>
+                        <option value="decisions">Make decisions</option>
+                        <option value="story">Tell a story</option>
+                    </select>
+                </div>
+                <div class="target-audience">
+                    <p>Target audience:</p>
+                    <select id="target-audience-choice">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="experts">Experts</option>
+                        <option value="stakeholders">Stakeholders</option>
+                        <option value="general">General interest</option>
+                    </select>
+                </div>
+                <div class="visual-style">
+                    <p>Target audience:</p>
+                    <select id="visual-style-choice">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="professional">Professional</option>
+                        <option value="playful">Playful</option>
+                        <option value="modern">Modern Minimalism</option>
+                        <option value="warm">Warm and Inviting</option>
+                        <option value="tech">Tech-Savvy</option>
+                        <option value="artistic">Artistic</option>
+                    </select>
+                </div>
+                <div class="file-upload">
+                    <label for="uploaded-file">Select a file: </label>
+                    <input type="file" id="uploaded-file" name="uploaded-file" accept=".xls,.xlsx,.csv" class="file-input">
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
