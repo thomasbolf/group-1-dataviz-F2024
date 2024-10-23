@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="{{ url_for('main.visualize') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="data" accept=".csv" required>
+        <select name="task">
+            <option value="storytelling">Storytelling</option>
+            <option value="analysis">Analysis</option>
+            <option value="comparison">Comparison</option>
+        </select>
+        <button type="submit">Generate Visualization</button>
+    </form>
+{% endblock %}
+                
