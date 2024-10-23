@@ -11,7 +11,7 @@ def wait_on_run(run, thread):
             thread_id=thread.id,
             run_id=run.id,
         )
-        time.sleep(3)
+        time.sleep(10)
     return run
     
 file = client.files.create(
@@ -60,34 +60,54 @@ df = pd.read_csv("iris.csv")
 
     # Convert DataFrame to a string for OpenAI
 csv_data = df.to_string()
-
 message = client.beta.threads.messages.create(
-    thread_id=thread.id, role="user", content="Could you do this for me based on this csv sample? Return Python code. Here it is" + csv_data, attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
+    thread_id=thread.id, role="user", content="Could you create a data visualization and save it as a file as requested with this data? Run the code, save the python code in a .py file and save the image as a .png file, and give me both files. Here is a sample of the data  " + csv_data, attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
 )
-
 run = client.beta.threads.runs.create(
-    thread_id=thread.id,
-    assistant_id=assistant.id,
+    thread_id = thread.id,
+    assistant_id = assistant.id
 )
 wait_on_run(run, thread)
-
-# Retrieve all the messages added after our last user message
-messageCode = client.beta.threads.messages.list(
+messageDone = client.beta.threads.messages.list(
     thread_id=thread.id, order="asc", after=message.id
 )
-show_json(messageCode)
+show_json(messageDone)
+# message = client.beta.threads.messages.create(
+#     thread_id=thread.id, role="user", content="Could you create a data visualization as requested with this data? Run the code too and send the vizualization " + csv_data, attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
+# )
+
+# run = client.beta.threads.runs.create(
+#     thread_id=thread.id,
+#     assistant_id=assistant.id,
+# )
+# wait_on_run(run, thread)
+# #
+# # Retrieve all the messages added after our last user message
+# messageCode = client.beta.threads.messages.list(
+#     thread_id=thread.id, order="asc", after=message.id
+# )
+# #print a line of hash
+# print("#############################################################################################################")
+# print("First response ")
+# show_json(messageCode)
+# print("#############################################################################################################")
 
 
-message = client.beta.threads.messages.create(
-    thread_id=thread.id, role="user", content="Could you run the code you just made??", attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
-)
 
-run = client.beta.threads.runs.create(
-    thread_id=thread.id,
-    assistant_id=assistant.id,
-)
-wait_on_run(run, thread)
-messageCodeRan = client.beta.threads.messages.list(
-    thread_id=thread.id, order="asc", after=message.id
-)
-show_json(messageCodeRan)
+# message2 = client.beta.threads.messages.create(
+#     thread_id=thread.id, role="user", content="Could you return the code you just made??"
+# )
+# time.sleep(30)
+# run2 = client.beta.threads.runs.create(
+#     thread_id=thread.id,
+#     assistant_id=assistant.id,
+# )
+# wait_on_run(run2, thread)
+# messageCodeRan = client.beta.threads.messages.list(
+#     thread_id=thread.id, order="asc", after=message2.id
+# )
+# print("#############################################################################################################")
+# print("Second response")
+# show_json(messageCodeRan)
+# print("#############################################################################################################")
+
