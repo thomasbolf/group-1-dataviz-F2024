@@ -3,7 +3,7 @@ import json
 import time
 import pandas as pd
 def show_json(obj):
-    print(json.loads(obj.model_dump_json()))
+    print(json.dumps(json.loads(obj.model_dump_json()), indent=2))
 client = OpenAI()
 def wait_on_run(run, thread):
     while run.status == "queued" or run.status == "in_progress":
@@ -46,13 +46,7 @@ Use the dataset provided, which contains a mix of numerical, categorical, and da
 Visualization Goal: The purpose of this visualization is to analyze the dataset in detail, focusing on uncovering and exploring deep relationships between different variables. The visual should provide insights into how these data points correlate or interact, helping the user identify key patterns or anomalies. It should be designed for individuals who want to dig deeper into the data, providing enough granularity to allow for a comprehensive understanding of the underlying structure. This visualization should support data exploration, enabling the viewer to draw informed conclusions or hypotheses.
 Target Audience: This visualization is designed for a specialized audience with advanced knowledge in the field. The focus should be on delivering detailed, precise, and comprehensive insights that allow for in-depth analysis. The content can assume familiarity with technical terms, complex data structures, and nuanced relationships between variables. The visual should not oversimplify the information but rather offer layers of depth and complexity, providing experts with the tools to derive significant insights, conduct thorough evaluations, and form data-driven conclusions based on their specialized understanding.
 Visual Style: The visualization should adopt a bright, engaging, and fun visual style that is both visually stimulating and approachable, particularly for younger audiences or educational purposes. Colors should be vibrant, and the design should include lively elements that evoke curiosity and excitement. The layout should be simple yet dynamic, focusing on making data more accessible and less intimidating. This style is meant to captivate the viewer’s attention, making learning or data exploration enjoyable while ensuring clarity and understanding without overwhelming the audience with too much detail.
-""",
-      # "attachments": [
-      #   {
-      #     "file_id": file.id,
-      #     "tools": [{"type": "code_interpreter"}]
-      #   }
-      # ]
+"""
     }
   ]
 )
@@ -72,6 +66,11 @@ messageDone = client.beta.threads.messages.list(
     thread_id=thread.id, order="asc", after=message.id
 )
 show_json(messageDone)
+print("Printing finished message: ")
+for m in messageDone:
+    if "file_id" in m:
+        file_id = m["file_id"]
+        print(file_id)
 # message = client.beta.threads.messages.create(
 #     thread_id=thread.id, role="user", content="Could you create a data visualization as requested with this data? Run the code too and send the vizualization " + csv_data, attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
 # )
