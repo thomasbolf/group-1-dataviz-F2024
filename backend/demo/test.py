@@ -89,11 +89,7 @@ print("Extracted file IDs:", file_ids)
 #save the json file
 with open('data.json', 'w') as f:
     json.dump(json.loads(messageDone.model_dump_json()), f)
-print(run)
 
-    # if "file_id" in m:
-    #     file_id = m["file_id"]
-    #     print(file_id)
   
 
 
