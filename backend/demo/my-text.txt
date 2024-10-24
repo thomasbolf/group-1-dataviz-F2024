@@ -1,0 +1,40 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+file_path = '/mnt/data/file-yyyfRIyJzwWBBGxaZS2OrVnb'
+data = pd.read_csv(file_path)
+
+# Determine unique species to match with markers
+unique_species = data['Species'].nunique()
+
+# Adjust the number of markers to the number of species
+markers = ["o", "s", "D"][:unique_species]
+
+# Set the visual style
+sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+# Set the plot size
+plt.figure(figsize=(10, 8))
+
+# Create a pairplot to explore the pairwise relationships in the dataset
+pairplot = sns.pairplot(
+    data, 
+    hue="Species", 
+    markers=markers,
+    height=3, 
+    aspect=1, 
+    diag_kind="hist",
+    plot_kws=dict(s=100, edgecolor="w", linewidth=0.5),
+    diag_kws=dict(fill=True)
+)
+
+# Add a main title
+pairplot.fig.suptitle('Iris Dataset Pairwise Relationships', y=1.02, fontsize=20, fontweight='bold')
+
+# Save the plot as an image
+image_path = '/mnt/data/iris_playful_visualization.png'
+pairplot.savefig(image_path)
+plt.close(pairplot.fig)

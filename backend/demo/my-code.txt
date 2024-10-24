@@ -1,0 +1,38 @@
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+import pandas as pd
+data = pd.read_csv('/mnt/data/file-LfwTFqYn95oLpf8BVgHdJwrs')
+
+# Function to create the playful visualization
+def create_playful_sepal_plot(data, image_path):
+    sns.set(style="whitegrid")
+    plt.figure(figsize=(10, 6))
+
+    sns.scatterplot(
+        x='SepalLengthCm', 
+        y='SepalWidthCm', 
+        hue='Species',
+        style='Species', 
+        palette='bright', 
+        s=100,               
+        data=data
+    )
+
+    plt.title('Playful Exploration of Sepal Dimensions', fontsize=16, fontweight='bold')
+    plt.xlabel('Sepal Length (cm)', fontsize=12)
+    plt.ylabel('Sepal Width (cm)', fontsize=12)
+
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.legend(title='Iris Species', title_fontsize='13', fontsize='11')
+
+    plt.savefig(image_path, format='png', dpi=300)
+    plt.close()
+
+# Define file path for image
+image_path = '/mnt/data/playful_sepal_plot.png'
+
+# Execute the function
+create_playful_sepal_plot(data, image_path)
