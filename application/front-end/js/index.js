@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let viz_goal = "analyze";
     let target_audience = "experts";
     let visual_style = "professional";
+    let target_variable = "any";
     document.getElementById('viz-goal-choice').addEventListener('change', (event) => {
         viz_goal = event.target.value;
         console.log("Visualization Goal:", viz_goal);
@@ -15,4 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
         visual_style = event.target.value;
         console.log("Visual Style:", visual_style);
     });
+    document.querySelector('.target-variable input').addEventListener('input', (event) => {
+        let target_variable = event.target.value;
+        console.log(target_variable);
+    });
+    
+    
 });

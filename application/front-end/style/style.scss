@@ -85,3 +85,18 @@ body {
         }
     }
 }
+
+.target-variable {
+    input {
+        font-family: "Inria Sans", sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        color:black;
+        width: 262px;
+        height: 45px;
+        gap: 0px;
+        border-radius: 12px;
+        border: 1px solid #717171;
+        padding-left: 10px;
+    }
+}
