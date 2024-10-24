@@ -34,10 +34,10 @@ def upload_file():
     visual_style = request.form['visual_style']
 
     file = request.files['file']
-    file_path = os.path.join("/tmp", file.filename)
-
+    #save the file to somewhere accessible to the backend
+    file_path = os.path.join('uploads', file.filename)
     prompt = prompt_creation.create_viz_prompt(visualization_goal, target_audience, visual_style)
-    ai_interaction.generate_code_and_graph(pd.read_csv(file_path), prompt)
+    ai_interaction.generate_code_and_graph(file_path, prompt)
 
     
     

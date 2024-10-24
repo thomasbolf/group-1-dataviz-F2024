@@ -3,23 +3,38 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the data
-data = pd.read_csv('/mnt/data/file-SUEtyrjUwn57IhwoCDvwfeCF')
+# Load the dataset
+file_path = '/mnt/data/file-yyyfRIyJzwWBBGxaZS2OrVnb'
+data = pd.read_csv(file_path)
 
-# Convert the numerical columns to appropriate types
-num_columns = ["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"]
-data[num_columns] = data[num_columns].apply(pd.to_numeric, errors='coerce')
+# Determine unique species to match with markers
+unique_species = data['Species'].nunique()
 
-# Set a playful style
-sns.set(style="whitegrid", palette="bright")
+# Adjust the number of markers to the number of species
+markers = ["o", "s", "D"][:unique_species]
 
-# Create the pair plot with histograms on the diagonal
-pair_plot = sns.pairplot(data, hue='Species', height=2.5, diag_kind='hist',
-                         plot_kws={'alpha': 0.6, 's': 80, 'edgecolor': 'w'})
+# Set the visual style
+sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-# Enhance aesthetics with a fun title and layout adjustments
-pair_plot.fig.suptitle("Playful Pair Plot Analysis of Iris Dataset", va='bottom', fontsize=14, color='purple')
-plt.subplots_adjust(top=0.9)
+# Set the plot size
+plt.figure(figsize=(10, 8))
 
-# Save the visualization as a PNG file
-pair_plot.savefig('/mnt/data/iris_pairplot_histogram.png')
+# Create a pairplot to explore the pairwise relationships in the dataset
+pairplot = sns.pairplot(
+    data, 
+    hue="Species", 
+    markers=markers,
+    height=3, 
+    aspect=1, 
+    diag_kind="hist",
+    plot_kws=dict(s=100, edgecolor="w", linewidth=0.5),
+    diag_kws=dict(fill=True)
+)
+
+# Add a main title
+pairplot.fig.suptitle('Iris Dataset Pairwise Relationships', y=1.02, fontsize=20, fontweight='bold')
+
+# Save the plot as an image
+image_path = '/mnt/data/iris_playful_visualization.png'
+pairplot.savefig(image_path)
+plt.close(pairplot.fig)
