@@ -5,6 +5,8 @@ from openai import OpenAI
 import json
 import time
 import pandas as pd
+import random
+import json
 def show_json(obj):
     print(json.loads(obj.model_dump_json()))
 client = OpenAI()
@@ -35,9 +37,15 @@ def generate_code_and_graph(data, prompt):
         Based on these inputs, you are tasked with producing the appropriate Matplotlib code to create the requested visual.
         """
     file = client.files.create(
-        file=open("iris.csv", "rb"),
+        file=open(data, "rb"),
         purpose='assistants'
     )
+    random_number = random.randint(1, 100000)
+    print(f"Generated random number: {random_number}")
+    df = pd.read_csv(data)
+
+    csv_data = df.head().to_string()
+    print(csv_data)
     assistant = client.beta.assistants.create(
     instructions=initial_instructions,
     model="gpt-4o",
@@ -48,35 +56,55 @@ def generate_code_and_graph(data, prompt):
         }
     }
     )
- 
-    # thread = client.beta.threads.create(
-    #     messages=[
-    #         {
-    #         "role": "user",
-    #         "content": "Make sure to adhere to your initial instructions and return python code for me (i.e I want to see the python code in the response)." + prompt,
+    thread = client.beta.threads.create(
+        messages=[
+            {
+            "role": "user",
+            "content": str(random_number) + prompt
+            }
+        ]
+    )
+    message = client.beta.threads.messages.create(
+    thread_id=thread.id, role="user", content="Use the file I gave you as the source for data. Could you create a data visualization and save it as a file as requested with this data? Run the code, save the python code in a .py file and save the image as a .png file, and give me both files. Here is a sample of the data  " + csv_data, attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
+    )
+    run = client.beta.threads.runs.create(
+    thread_id = thread.id,
+    assistant_id = assistant.id
+    )
+    wait_on_run(run, thread)
+    messageDone = client.beta.threads.messages.list(
+    thread_id=thread.id, order="asc", after=message.id
+    )
+    print("About to save json object")
+    with open('app/uploads/data.json', 'w') as f:
+        json.dump(json.loads(messageDone.model_dump_json()), f)
+    with open('app/uploads/data.json', 'r') as file:
+        data = json.load(file)
+    # Extract file_id values
+    file_ids = []
+    for item in data['data']:
+        for attachment in item.get('attachments', []):
+            file_ids.append(attachment['file_id'])
+        for content in item.get('content', []):
+            for annotation in content.get('text', {}).get('annotations', []):
+                if 'file_path' in annotation:
+                    file_ids.append(annotation['file_path']['file_id'])
+    image_data = client.files.content(file_ids[0])
+    image_data_bytes = image_data.read()
 
-    #         }
-    #     ]
-    # )
-    # message = client.beta.threads.messages.create(
-    # thread_id=thread.id, role="user", content="Could you create a data visualization and save it as a file as requested with this data? Run the code, save the python code in a .py file and save the image as a .png file, and give me both files. Here is a sample of the data  " + csv_data, attachments=[{"file_id": file.id, "tools": [{"type": "code_interpreter"}]}]
-    # )
-    # run = client.beta.threads.runs.create(
-    # thread_id = thread.id,
-    # assistant_id = assistant.id
-    # )
-    # wait_on_run(run, thread)
-    # messageDone = client.beta.threads.messages.list(
-    #     thread_id=thread.id, order="asc", after=message.id
-    # )
-    # show_json(messageDone)
+    with open("app/uploads/my-image.png", "wb") as file:
+        file.write(image_data_bytes)
 
-    # ## TODO: parse json for filenames for code + graph, the filenames should be found in the json in the following format: "file-id": <file_name> ... get the first two instances of this
-    # for m in messageDone:
-    #     if "file_id" in m:
-    #         file_id = m["file_id"]
-    #         print(file_id)
+    ## do the above but instead save txt file
+    data = client.files.content(file_ids[1])
+    data_bytes = data.read()
+    with open("app/uploads/my-code.txt", "wb") as file:
+        file.write(data_bytes)
     
+        
+    
+    
+ 
     
 
 
