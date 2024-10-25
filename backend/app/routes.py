@@ -4,7 +4,7 @@ from .utils import data_processing, plot_generation, ai_interaction, prompt_crea
 import pandas as pd
 import os
 import json 
-import jsonify
+from flask import jsonify
 # Define the blueprint
 main = Blueprint('main', __name__)
 
@@ -48,8 +48,8 @@ def upload_file():
     prompt = prompt_creation.create_viz_prompt(visualization_goal, target_audience, visual_style)
     print(prompt)
     ai_interaction.generate_code_and_graph(file_path, prompt)
-    code_path = os.path.join('app/uploads', 'my-code.txt')
-    image_path = os.path.join('app/uploads', 'my-image.txt')
+    code_path = os.path.join('app/uploads', 'my-code.py')
+    image_path = os.path.join('app/uploads', 'my-image.png')
 
     if os.path.exists(code_path) and os.path.exists(image_path):
         # If both files exist, return them as part of the response
@@ -71,16 +71,6 @@ def upload_file():
             'code_exists': os.path.exists(code_path),
             'image_exists': os.path.exists(image_path)
         }), 404
-
-    #return render_template('index.html')
-    ##display values above
-    
-
-    # file = request.files['file']
-    # #save the file to somewhere accessible to the backend
-    # file_path = os.path.join('uploads', file.filename)
-    # prompt = prompt_creation.create_viz_prompt(visualization_goal, target_audience, visual_style)
-    # ai_interaction.generate_code_and_graph(file_path, prompt)
 
     
     

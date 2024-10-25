@@ -89,25 +89,26 @@ def generate_code_and_graph(data, prompt):
             for annotation in content.get('text', {}).get('annotations', []):
                 if 'file_path' in annotation:
                     file_ids.append(annotation['file_path']['file_id'])
-    image_data = client.files.content(file_ids[0])
-    image_data_bytes = image_data.read()
 
-    with open("app/uploads/my-image.png", "wb") as file:
-        file.write(image_data_bytes)
-
-    ## do the above but instead save txt file
-    data = client.files.content(file_ids[1])
-    data_bytes = data.read()
-    with open("app/uploads/my-code.txt", "wb") as file:
-        file.write(data_bytes)
-    
-        
-    
-    
- 
-    
-
-
-
+    if(client.files.retrieve(file_ids[1]).filename[-3:] == 'png'):
+        image_data = client.files.content(file_ids[1])
+        image_data_bytes = image_data.read()
+        with open("app/uploads/my-image.png", "wb") as file:
+            file.write(image_data_bytes)
+    elif (client.files.retrieve(file_ids[1]).filename[-2:] == 'py'):
+        data = client.files.content(file_ids[1])
+        data_bytes = data.read()
+        with open("app/uploads/my-code.py", "wb") as file:
+            file.write(data_bytes)
+    if(client.files.retrieve(file_ids[0]).filename[-3:] == 'png'):
+        image_data = client.files.content(file_ids[0])
+        image_data_bytes = image_data.read()
+        with open("app/uploads/my-image.png", "wb") as file:
+            file.write(image_data_bytes)
+    elif (client.files.retrieve(file_ids[0]).filename[-2:] == 'py'):
+        data = client.files.content(file_ids[0])
+        data_bytes = data.read()
+        with open("app/uploads/my-code.py", "wb") as file:
+            file.write(data_bytes)
 
                 
