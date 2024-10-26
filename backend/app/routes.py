@@ -72,5 +72,29 @@ def upload_file():
             'image_exists': os.path.exists(image_path)
         }), 404
 
+
+@main.route("/get-image", methods=["GET"])
+def get_image():
+    image_path = os.path.join('app/uploads', 'my-image.png')
+    if os.path.exists(image_path):
+        with open(image_path, 'rb') as image_file:
+            image_content = image_file.read()
+            return image_content
+    else:
+        return jsonify({
+            'error': 'Image file not found'
+        }), 404
+    
+@main.route("/get-code", methods=["GET"])
+def get_code():
+    code_path = os.path.join('app/uploads', 'my-code.py')
+    if os.path.exists(code_path):
+        with open(code_path, 'r') as code_file:
+            code_content = code_file.read()
+            return code_content
+    else:
+        return jsonify({
+            'error': 'Code file not found'
+        }), 404
     
     
