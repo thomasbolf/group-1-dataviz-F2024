@@ -15,7 +15,7 @@
         <div class="inner-container">
             <div class="visualization-output">
                 <div class="graphic">
-                    <img src="graph-example.png" alt="Output of data visualization.">
+                    <img src="graph-example.png" id="visualization-image" alt="Output of data visualization.">
                 </div>
             </div>
             <div class="right-box">
@@ -28,7 +28,7 @@
                         <option value="answer">Answer a question</option>
                         <option value="communicate">Communicate ideas</option>
                         <option value="patterns">Find patterns</option>
-                        <option value="decisions">Make decisions</option>
+                        <option value="Make decisions">Make decisions</option>
                         <option value="story">Tell a story</option>
                     </select>
                 </div>
@@ -36,7 +36,7 @@
                     <p>Target audience:</p>
                     <select id="target-audience-choice">
                         <option value="" disabled selected>Select an option</option>
-                        <option value="experts">Experts</option>
+                        <option value="Experts">Experts</option>
                         <option value="stakeholders">Stakeholders</option>
                         <option value="general">General interest</option>
                     </select>
@@ -46,7 +46,7 @@
                     <select id="visual-style-choice">
                         <option value="" disabled selected>Select an option</option>
                         <option value="professional">Professional</option>
-                        <option value="playful">Playful</option>
+                        <option value="Playful">Playful</option>
                         <option value="modern">Modern Minimalism</option>
                         <option value="warm">Warm and Inviting</option>
                         <option value="tech">Tech-Savvy</option>
@@ -57,8 +57,11 @@
                     <label for="uploaded-file">Select a file: </label>
                     <input type="file" id="uploaded-file" name="uploaded-file" accept=".xls,.xlsx,.csv" class="file-input">
                 </div>
+                <div class="submit-button">
+                    <button id="submit-button">Submit</button>
             </div>
         </div>
+
         </div>
     </div>
 </body>

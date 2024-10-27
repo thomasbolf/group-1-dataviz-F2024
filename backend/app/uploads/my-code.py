@@ -1,28 +1,37 @@
 
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
-# Load the dataset
-file_path = '/mnt/data/file-ctfOc2xVq7gHZlREbDL7mfmW'
-data = pd.read_csv(file_path)
+# Load data
+data = pd.read_csv('/mnt/data/file-L0SCHiKumJO2eTDsYFbj40ak')
 
-# Set a playful theme for the plot
-sns.set_theme(style="whitegrid", palette="pastel")
+# Set the playful style for the plot
+sns.set(style="whitegrid")
 
-# Create a scatter plot using Seaborn with vibrant colors for different species
+# Create a scatter plot
 plt.figure(figsize=(10, 6))
-scatter_plot = sns.scatterplot(data=data, x='SepalLengthCm', y='SepalWidthCm', hue='Species', 
-                               palette='Set2', s=100, edgecolor='w', alpha=0.8)
+scatter_plot = sns.scatterplot(
+    data=data, 
+    x='SepalLengthCm', 
+    y='SepalWidthCm', 
+    hue='Species',
+    palette='Set1', 
+    s=100, 
+    edgecolor='w'
+)
 
-# Add title and labels with a playful font size
-plt.title('Playful Visualization of Sepal Width vs Sepal Length', fontsize=14, fontweight='bold')
+# Setting title and labels
+plt.title('Sepal Width vs Sepal Length by Species', fontsize=14, weight='bold')
 plt.xlabel('Sepal Length (cm)', fontsize=12)
 plt.ylabel('Sepal Width (cm)', fontsize=12)
 
-# Enhance the legend
-plt.legend(title='Iris Species', title_fontsize='13', loc='best', fontsize='11')
+# Lively additions, for example using star markers to add a playful element
+scatter_plot.set_xticks(range(4, 9))
+scatter_plot.set_xticklabels(['🌟4', '🌟5', '🌟6', '🌟7', '🌟8'], fontsize=10)
+scatter_plot.set_yticks(range(2, 6))
+scatter_plot.set_yticklabels(['✷2', '✷3', '✷4', '✷5'], fontsize=10)
 
 # Save the plot
-plt.savefig('/mnt/data/playful_scatter_plot.png', dpi=300)
+plt.savefig('/mnt/data/sepal_width_vs_length.png', format='png')
 plt.show()

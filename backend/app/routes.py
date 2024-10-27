@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_file
 from .utils import data_processing, plot_generation, ai_interaction, prompt_creation
 import pandas as pd
 import os
@@ -48,38 +48,39 @@ def upload_file():
     prompt = prompt_creation.create_viz_prompt(visualization_goal, target_audience, visual_style)
     print(prompt)
     ai_interaction.generate_code_and_graph(file_path, prompt)
-    code_path = os.path.join('app/uploads', 'my-code.py')
-    image_path = os.path.join('app/uploads', 'my-image.png')
+    # code_path = os.path.join('app/uploads', 'my-code.py')
+    # image_path = os.path.join('app/uploads', 'my-image.png')
 
-    if os.path.exists(code_path) and os.path.exists(image_path):
-        # If both files exist, return them as part of the response
-        with open(code_path, 'r') as code_file:
-            code_content = code_file.read()
+    # if os.path.exists(code_path) and os.path.exists(image_path):
+    #     # If both files exist, return them as part of the response
+    #     with open(code_path, 'r') as code_file:
+    #         code_content = code_file.read()
         
-        with open(image_path, 'r') as image_file:
-            image_content = image_file.read()
+    #     with open(image_path, 'r') as image_file:
+    #         image_content = image_file.read()
+    return jsonify({
+            }), 200
         
-        # You can return them as a JSON response or in any other format
-        return jsonify({
-            'code': code_content,
-            'image': image_content
-        })
-    else:
-        # If one or both files are missing, return an appropriate message
-        return jsonify({
-            'error': 'One or both files are missing',
-            'code_exists': os.path.exists(code_path),
-            'image_exists': os.path.exists(image_path)
-        }), 404
+    #     # You can return them as a JSON response or in any other format
+    #     return jsonify({
+    #         'code': code_content,
+    #         'image': image_content
+    #     })
+    # else:
+    #     # If one or both files are missing, return an appropriate message
+    #     return jsonify({
+    #         'error': 'One or both files are missing',
+    #         'code_exists': os.path.exists(code_path),
+    #         'image_exists': os.path.exists(image_path)
+    #     }), 404
 
 
 @main.route("/get-image", methods=["GET"])
 def get_image():
-    image_path = os.path.join('app/uploads', 'my-image.png')
+    image_path = os.path.join(os.path.abspath('app/uploads'), 'my-image.png')
+    print(image_path)
     if os.path.exists(image_path):
-        with open(image_path, 'rb') as image_file:
-            image_content = image_file.read()
-            return image_content
+        return send_file(image_path, mimetype='image/png')
     else:
         return jsonify({
             'error': 'Image file not found'
@@ -87,7 +88,7 @@ def get_image():
     
 @main.route("/get-code", methods=["GET"])
 def get_code():
-    code_path = os.path.join('app/uploads', 'my-code.py')
+    code_path = os.path.join('uploads', 'my-code.py')
     if os.path.exists(code_path):
         with open(code_path, 'r') as code_file:
             code_content = code_file.read()
