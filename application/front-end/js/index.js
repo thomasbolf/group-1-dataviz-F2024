@@ -45,11 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             console.log("API Response:", data);
-            return fetch("http://127.0.0.1:5000/get-image", {
-                method: "GET",
+            return new Promise(resolve => setTimeout(resolve, 2000)).then(() => {
+                return fetch("http://127.0.0.1:5000/get-image", {
+                    method: "GET",
+                });
             });
         })
-        .then(response => response.blob())
+        .then(response => response.blob()) 
         .then(imageBlob => {
             // Create a URL for the image and set it as the src of the <img> element
             const newImageUrl = URL.createObjectURL(imageBlob);
