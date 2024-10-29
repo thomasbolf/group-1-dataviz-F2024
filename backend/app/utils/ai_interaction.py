@@ -40,10 +40,8 @@ def generate_code_and_graph(data, prompt):
         file=open(data, "rb"),
         purpose='assistants'
     )
-    random_number = random.randint(1, 100000)
-    print(f"Generated random number: {random_number}")
-    df = pd.read_csv(data)
 
+    df = pd.read_csv(data)
     csv_data = df.head().to_string()
     print(csv_data)
     assistant = client.beta.assistants.create(
@@ -60,7 +58,7 @@ def generate_code_and_graph(data, prompt):
         messages=[
             {
             "role": "user",
-            "content": str(random_number) + prompt
+            "content": prompt
             }
         ]
     )
@@ -80,7 +78,6 @@ def generate_code_and_graph(data, prompt):
         json.dump(json.loads(messageDone.model_dump_json()), f)
     with open('app/uploads/data.json', 'r') as file:
         data = json.load(file)
-    # Extract file_id values
     file_ids = []
     for item in data['data']:
         for attachment in item.get('attachments', []):
