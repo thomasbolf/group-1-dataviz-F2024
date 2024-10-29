@@ -1,37 +1,25 @@
-
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
 
-# Load data
-data = pd.read_csv('/mnt/data/file-L0SCHiKumJO2eTDsYFbj40ak')
+# Load the data
+file_path = 'file-YEy6KcReHex8c2BxHYq38F7F'
+data = pd.read_csv(file_path)
 
-# Set the playful style for the plot
-sns.set(style="whitegrid")
+# Set up the visual style
+sns.set(style="whitegrid", palette="pastel")
 
-# Create a scatter plot
+# Create a playful and informative scatter plot with SepalWidthCm and SepalLengthCm
 plt.figure(figsize=(10, 6))
-scatter_plot = sns.scatterplot(
-    data=data, 
-    x='SepalLengthCm', 
-    y='SepalWidthCm', 
-    hue='Species',
-    palette='Set1', 
-    s=100, 
-    edgecolor='w'
-)
+scatter_plot = sns.scatterplot(data=data, x='SepalLengthCm', y='SepalWidthCm', hue='Species', s=100, palette='bright', alpha=0.7)
 
-# Setting title and labels
-plt.title('Sepal Width vs Sepal Length by Species', fontsize=14, weight='bold')
-plt.xlabel('Sepal Length (cm)', fontsize=12)
-plt.ylabel('Sepal Width (cm)', fontsize=12)
+# Add titles and labels
+scatter_plot.set_title('Relationship between Sepal Width and Sepal Length', fontsize=16, fontweight='bold')
+scatter_plot.set_xlabel('Sepal Length (cm)', fontsize=12)
+scatter_plot.set_ylabel('Sepal Width (cm)', fontsize=12)
 
-# Lively additions, for example using star markers to add a playful element
-scatter_plot.set_xticks(range(4, 9))
-scatter_plot.set_xticklabels(['🌟4', '🌟5', '🌟6', '🌟7', '🌟8'], fontsize=10)
-scatter_plot.set_yticks(range(2, 6))
-scatter_plot.set_yticklabels(['✷2', '✷3', '✷4', '✷5'], fontsize=10)
+# Additional playful elements
+plt.gca().set_facecolor('#f9f9f9')
 
 # Save the plot
-plt.savefig('/mnt/data/sepal_width_vs_length.png', format='png')
-plt.show()
+plt.savefig('sepal_relationship.png')
