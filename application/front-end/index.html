@@ -10,12 +10,12 @@
 <body>
     <div class="outer-container">
         <div class="instructions">
-            <p><b>Instructions:</b> Lorem ipsum dolor sit amet consectetur. Velit sed duis neque iaculis convallis at tristique ante mattis. Enim mattis mus amet fames sed tortor augue libero. Enim mattis mus amet fames sed tortor augu</p>
+            <p><b>Instructions:</b> This tool is designed to allow all users to create immersive data visualizations with ease. Select options for your goal, target audience, and visual preference. Then upload a spreadsheet or CSV file and enter your desired variable of focus into the designated text field. Lastly, press the submit button and wait for the visualization to populate.</p>
         </div>
         <div class="inner-container">
             <div class="visualization-output">
                 <div class="graphic">
-                    <img src="graph-example.png" id="visualization-image" alt="Output of data visualization.">
+                    <img src="graph-example.png" id="visualization-image" alt="Output of data visualization." style="width:100%; height:100%">
                 </div>
             </div>
             <div class="right-box">
@@ -24,12 +24,12 @@
                     <p>Visualization goal:</p>
                     <select id="viz-goal-choice">
                         <option value="" disabled selected>Select an option</option>
-                        <option value="analyze">Analyze data</option>
-                        <option value="answer">Answer a question</option>
-                        <option value="communicate">Communicate ideas</option>
-                        <option value="patterns">Find patterns</option>
+                        <option value="Analyze data">Analyze data</option>
+                        <option value="Answer questions">Answer a question</option>
+                        <option value="Communicate ideas">Communicate ideas</option>
+                        <option value="Find/Reveal patterns">Find patterns</option>
                         <option value="Make decisions">Make decisions</option>
-                        <option value="story">Tell a story</option>
+                        <option value="Tell a story">Tell a story</option>
                     </select>
                 </div>
                 <div class="target-audience">
@@ -37,20 +37,20 @@
                     <select id="target-audience-choice">
                         <option value="" disabled selected>Select an option</option>
                         <option value="Experts">Experts</option>
-                        <option value="stakeholders">Stakeholders</option>
-                        <option value="general">General interest</option>
+                        <option value="Stakeholders">Stakeholders</option>
+                        <option value="General Audience">General interest</option>
                     </select>
                 </div>
                 <div class="visual-style">
                     <p>Target audience:</p>
                     <select id="visual-style-choice">
                         <option value="" disabled selected>Select an option</option>
-                        <option value="professional">Professional</option>
+                        <option value="Professional">Professional</option>
                         <option value="Playful">Playful</option>
-                        <option value="modern">Modern Minimalism</option>
-                        <option value="warm">Warm and Inviting</option>
-                        <option value="tech">Tech-Savvy</option>
-                        <option value="artistic">Artistic</option>
+                        <option value="Modern minimalism">Modern Minimalism</option>
+                        <option value="Warm and Inviting">Warm and Inviting</option>
+                        <option value="Tech-savvy">Tech-Savvy</option>
+                        <option value="Artistic">Artistic</option>
                     </select>
                 </div>
                 <div class="target-variable">
@@ -64,10 +64,9 @@
                     <input type="file" id="uploaded-file" name="uploaded-file" accept=".xls,.xlsx,.csv" class="file-input">
                 </div>
                 <div class="submit-button">
-                    <button id="submit-button" >Submit</button>
+                    <button id="submit-button">Submit</button>
+                </div>
             </div>
-        </div>
-
         </div>
     </div>
 </body>

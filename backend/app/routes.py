@@ -35,45 +35,21 @@ def upload_file():
     target_audience = request.form['target_audience']
     visual_style = request.form['visual_style']
     file = request.files['file']
-    # return render_template('index.html')
-
+    target_variable = request.form['targetVariable']
+    
     print(f"Visualization Goal: {visualization_goal}")
     print(f"Target Audience: {target_audience}")
     print(f"Visual Style: {visual_style}")
     print(f"File Name: {file.filename}")
-    # Save the file from request somewhere
-    ##save the file in app/uploads
+
     file_path = os.path.join('app/uploads', "data.csv")
     file.save(file_path) 
-    prompt = prompt_creation.create_viz_prompt(visualization_goal, target_audience, visual_style)
+    prompt = prompt_creation.create_viz_prompt(visualization_goal, target_audience, visual_style, target_variable)
     print(prompt)
     ai_interaction.generate_code_and_graph(file_path, prompt)
-    # code_path = os.path.join('app/uploads', 'my-code.py')
-    # image_path = os.path.join('app/uploads', 'my-image.png')
-
-    # if os.path.exists(code_path) and os.path.exists(image_path):
-    #     # If both files exist, return them as part of the response
-    #     with open(code_path, 'r') as code_file:
-    #         code_content = code_file.read()
-        
-    #     with open(image_path, 'r') as image_file:
-    #         image_content = image_file.read()
     return jsonify({
             }), 200
         
-    #     # You can return them as a JSON response or in any other format
-    #     return jsonify({
-    #         'code': code_content,
-    #         'image': image_content
-    #     })
-    # else:
-    #     # If one or both files are missing, return an appropriate message
-    #     return jsonify({
-    #         'error': 'One or both files are missing',
-    #         'code_exists': os.path.exists(code_path),
-    #         'image_exists': os.path.exists(image_path)
-    #     }), 404
-
 
 @main.route("/get-image", methods=["GET"])
 def get_image():
@@ -88,7 +64,7 @@ def get_image():
     
 @main.route("/get-code", methods=["GET"])
 def get_code():
-    code_path = os.path.join('uploads', 'my-code.py')
+    code_path = os.path.join('uploads', 'my-code.txt')
     if os.path.exists(code_path):
         with open(code_path, 'r') as code_file:
             code_content = code_file.read()

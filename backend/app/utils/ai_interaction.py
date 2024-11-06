@@ -98,7 +98,7 @@ def generate_code_and_graph(data, prompt):
         elif (client.files.retrieve(file_ids[1]).filename[-2:] == 'py'):
             data = client.files.content(file_ids[1])
             data_bytes = data.read()
-            with open("app/uploads/my-code.py", "wb") as file:
+            with open("app/uploads/my-code.txt", "wb") as file:
                 file.write(data_bytes)
         if(client.files.retrieve(file_ids[0]).filename[-3:] == 'png'):
             image_data = client.files.content(file_ids[0])
@@ -108,7 +108,7 @@ def generate_code_and_graph(data, prompt):
         elif (client.files.retrieve(file_ids[0]).filename[-2:] == 'py'):
             data = client.files.content(file_ids[0])
             data_bytes = data.read()
-            with open("app/uploads/my-code.py", "wb") as file:
+            with open("app/uploads/my-code.txt", "wb") as file:
                 file.write(data_bytes)
     elif(len(file_ids) == 1):
         if(client.files.retrieve(file_ids[0]).filename[-3:] == 'png'):
@@ -119,7 +119,7 @@ def generate_code_and_graph(data, prompt):
         elif (client.files.retrieve(file_ids[0]).filename[-2:] == 'py'):
             data = client.files.content(file_ids[0])
             data_bytes = data.read()
-            with open("app/uploads/my-code.py", "wb") as file:
+            with open("app/uploads/my-code.txt", "wb") as file:
                 file.write(data_bytes)
 
                 

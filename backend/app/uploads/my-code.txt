@@ -1,0 +1,30 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the data from file
+file_path = '/mnt/data/file-VepHrI6IJ0zEPZgOTVFt9aHN'
+data = pd.read_csv(file_path)
+
+# Set up the style of seaborn
+sns.set_theme(style="whitegrid", rc={"axes.facecolor": (0, 0, 0, 0)})
+
+# Initialize the figure
+plt.figure(figsize=(10, 6))
+
+# Create a scatter plot of Sepal Length vs Sepal Width
+sns.scatterplot(data=data, x='SepalLengthCm', y='SepalWidthCm', hue='Species', palette='Set2', s=100, edgecolor='w', alpha=0.7)
+
+# Set title and labels with modern and minimal fonts
+plt.title('Sepal Length vs Sepal Width', fontsize=16, weight='bold')
+plt.xlabel('Sepal Length (cm)', fontsize=12)
+plt.ylabel('Sepal Width (cm)', fontsize=12)
+plt.axis('tight')
+
+# Improve whiteness and clarity
+plt.gca().spines['top'].set_color('none')
+plt.gca().spines['right'].set_color('none')
+
+# Save the image
+plt.savefig('/mnt/data/sepal_analysis.png', format='png', dpi=300, bbox_inches='tight')
