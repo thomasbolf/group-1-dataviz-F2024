@@ -1,40 +1,30 @@
-
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
-# Load the data from the uploaded CSV file
-file_path = '/mnt/data/file-6NtvdibvzAwb4sPTJzey7zwJ'
-data = pd.read_csv(file_path)
+# Load the data
+data = pd.read_csv('<file_path>')
 
-# Filter out rows where 'sex' is NaN
-data_filtered = data.dropna(subset=['sex'])
+# Set style for the plot
+sns.set(style="whitegrid")
 
-# Set the style for modern minimalism
-sns.set_style("whitegrid")
-
-# Create a boxplot to show the distribution of body mass by sex, highlighting differences
+# Initialize the matplotlib figure
 plt.figure(figsize=(10, 6))
-ax = sns.boxplot(x='sex', y='body_mass_g', data=data_filtered, palette="pastel")
 
-# Add title and labels
-ax.set_title('Distribution of Body Mass by Sex', fontsize=16, weight='bold', pad=20)
-ax.set_xlabel('Sex', fontsize=12)
-ax.set_ylabel('Body Mass (g)', fontsize=12)
+# Create scatterplot
+sns.scatterplot(data=data, x='bill_length_mm', y='bill_depth_mm',
+                hue='species', style='sex',
+                palette='muted', s=100)
 
-# Highlight key insights with annotations
-median_values = data_filtered.groupby('sex')['body_mass_g'].median()
-for i, sex in enumerate(data_filtered['sex'].unique()):
-    median_value = median_values[sex]
-    ax.annotate(f'Median: {median_value:.0f}g', 
-                xy=(i, median_value), 
-                xytext=(i - 0.15, median_value + 100), 
-                arrowprops=dict(facecolor='black', shrink=0.05, width=1),
-                fontsize=10, color='black')
+# Add titles and labels
+plt.title('Penguin Bill Dimensions by Species and Sex', fontsize=16)
+plt.xlabel('Bill Length (mm)', fontsize=14)
+plt.ylabel('Bill Depth (mm)', fontsize=14)
+
+# Customizations for professionalism
+plt.legend(title='Species and Sex', title_fontsize='13', loc='upper right')
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.tight_layout()
 
 # Save the plot as a PNG file
-plot_filename = '/mnt/data/body_mass_by_sex.png'
-plt.savefig(plot_filename, bbox_inches='tight')
-
-# Show the plot
-plt.show()
+plt.savefig('penguin_bill_dimensions.png')
