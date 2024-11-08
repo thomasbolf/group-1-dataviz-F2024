@@ -1,30 +1,27 @@
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
 
-# Load the data
-data = pd.read_csv('<file_path>')
+# Load the dataset
+file_path = '/mnt/data/file-t0nzjtP51tSRLAM2uWM5roON'
+data = pd.read_csv(file_path)
 
-# Set style for the plot
-sns.set(style="whitegrid")
+# Clean the data: drop rows with missing values
+clean_data = data.dropna(subset=['body_mass_g', 'sex', 'species'])
 
-# Initialize the matplotlib figure
+# Set a professional style for the plot
+plt.style.use('seaborn-darkgrid')
+
+# Create a bar plot with seaborn
 plt.figure(figsize=(10, 6))
+sns.barplot(x='species', y='body_mass_g', hue='sex', data=clean_data, palette='muted')
 
-# Create scatterplot
-sns.scatterplot(data=data, x='bill_length_mm', y='bill_depth_mm',
-                hue='species', style='sex',
-                palette='muted', s=100)
-
-# Add titles and labels
-plt.title('Penguin Bill Dimensions by Species and Sex', fontsize=16)
-plt.xlabel('Bill Length (mm)', fontsize=14)
-plt.ylabel('Bill Depth (mm)', fontsize=14)
-
-# Customizations for professionalism
-plt.legend(title='Species and Sex', title_fontsize='13', loc='upper right')
-plt.grid(True, linestyle='--', alpha=0.6)
-plt.tight_layout()
+# Add title and labels
+plt.title('Average Body Mass of Penguins by Species and Gender', fontsize=14)
+plt.xlabel('Species', fontsize=12)
+plt.ylabel('Average Body Mass (g)', fontsize=12)
+plt.legend(title='Gender')
 
 # Save the plot as a PNG file
-plt.savefig('penguin_bill_dimensions.png')
+plot_file_path = '/mnt/data/penguin_body_mass_visualization.png'
+plt.savefig(plot_file_path, bbox_inches='tight')

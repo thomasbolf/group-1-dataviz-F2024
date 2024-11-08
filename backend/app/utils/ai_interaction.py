@@ -5,7 +5,6 @@ from openai import OpenAI
 import json
 import time
 import pandas as pd
-import random
 import json
 def show_json(obj):
     print(json.loads(obj.model_dump_json()))
@@ -18,18 +17,6 @@ def wait_on_run(run, thread):
         )
         time.sleep(10)
     return run
-# def get_insights(prompt):
-#     openai.api_key = os.getenv("OPENAI_API_KEY")
-
-#     response = openai.ChatCompletion.create(
-#         model="gpt-4",  # Using GPT-4
-#         messages=[
-#             {"role": "system", "content": "You are a helpful assistant."},
-#             {"role": "user", "content": prompt}
-#         ],
-#         max_tokens=150
-#     )
-#     return response['choices'][0]['message']['content'].strip()
 def generate_code_and_graph(data, prompt):
     initial_instructions = """
         You are working on an automated visualization system that generates customizable visualizations using Python’s Matplotlib library. 
@@ -40,12 +27,10 @@ def generate_code_and_graph(data, prompt):
         file=open(data, "rb"),
         purpose='assistants'
     )
-    random_number = random.randint(1, 100000)
-    print(f"Generated random number: {random_number}")
+
     df = pd.read_csv(data)
 
     csv_data = df.head().to_string()
-    print(csv_data)
     assistant = client.beta.assistants.create(
     instructions=initial_instructions,
     model="gpt-4o",
@@ -60,7 +45,7 @@ def generate_code_and_graph(data, prompt):
         messages=[
             {
             "role": "user",
-            "content": str(random_number) + prompt
+            "content": prompt
             }
         ]
     )
@@ -121,5 +106,3 @@ def generate_code_and_graph(data, prompt):
             data_bytes = data.read()
             with open("app/uploads/my-code.txt", "wb") as file:
                 file.write(data_bytes)
-
-                
